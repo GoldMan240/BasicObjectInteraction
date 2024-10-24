@@ -23,5 +23,15 @@ namespace Code.Interactor
             Interactable = interactable;
             HasInteractable = true;
         }
+
+        public IInteractable GetInteractable()
+        {
+            if (!HasInteractable) return null;
+            
+            IInteractable interactable = Interactable;
+            HasInteractable = false;
+            Interactable = null;
+            return interactable;
+        }
     }
 }
