@@ -8,6 +8,7 @@ namespace Code.Player
     {
         [SerializeField] private float _mouseSensitivity = 100f;
         [SerializeField] private Transform _playerBody;
+        [SerializeField] private Camera _camera;
         
         private const float MaxRotationAngleX = 90f;
         private IInputService _inputService;
@@ -32,7 +33,7 @@ namespace Code.Player
             _xRotation -= mouseY;
             _xRotation = Mathf.Clamp(_xRotation, -MaxRotationAngleX, MaxRotationAngleX);
             
-            transform.localRotation = Quaternion.Euler(_xRotation, 0, 0);
+            _camera.transform.localRotation = Quaternion.Euler(_xRotation, 0, 0);
             _playerBody.Rotate(Vector3.up * mouseX);
         }
     }
