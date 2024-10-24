@@ -19,6 +19,7 @@ namespace Code.Interactable
 
         public string Tip => GetTip();
         public Transform Transform => transform;
+        public int SlotAmount => _itemSlots.Count;
 
         private void Awake()
         {
@@ -32,6 +33,19 @@ namespace Code.Interactable
                 TryPut(interactor);
             else
                 TryTake(interactor);
+        }
+        
+        public void ForcePut(IInteractable interactable)
+        {
+            if (!HasEmptySlot) return;
+                
+            Transform emptySlot = GetEmptySlot();
+            SnapTo(emptySlot, interactable);
+                
+            if (interactable is IMightHaveParent mightHaveParent)
+                mightHaveParent.SetParent(this);
+                
+            _slotByInteractables[emptySlot] = interactable;
         }
 
         private void TryPut(IInteractor interactor)
